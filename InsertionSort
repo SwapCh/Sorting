@@ -1,0 +1,24 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    int a[] = {2, 5, 3, 7};
+    int n = sizeof(a) / sizeof(a[0]);  // Calculate the number of elements in the array
+    int i, j, min, pos, temp;
+    
+    for(i=1;i<n;i++){
+        int current=a[i];
+        j=i-1;
+        while(j>current && j>=0){ //This helps to push the required element to next position.
+            a[j+1]=a[j];
+            j--;
+        }
+        a[j+1]=current;//This puts the current element in place vacated and it stops at the desired because of the condition of the while loop.
+    }
+    
+    for (i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+
+    return 0;
+}
