@@ -1,0 +1,53 @@
+//The program to perform merge Sort On Arrays
+
+#include <stdio.h>
+
+// Forward declaration of conquer
+void conquer(int a[], int si, int ei, int mid);
+
+void divide(int a[], int si, int ei) {
+    if (si >= ei) {
+        return;
+    }
+    int mid = si + (ei - si) / 2;
+    divide(a, si, mid);
+    divide(a, mid + 1, ei);
+    conquer(a, si, ei, mid);
+}
+
+void conquer(int a[], int si, int ei, int mid) {
+    int merged[ei - si + 1];
+    int index1 = si; // 1st Sorted array
+    int index2 = mid + 1; // 2nd Sorted array
+    int x = 0, i = 0;
+
+    while (index1 <= mid && index2 <= ei) {
+        if (a[index1] < a[index2])
+            merged[x++] = a[index1++];
+        else
+            merged[x++] = a[index2++];
+    }
+
+    while (index1 <= mid) {
+        merged[x++] = a[index1++];
+    }
+
+    while (index2 <= ei) {
+        merged[x++] = a[index2++];
+    }
+
+    for (i = 0; i < sizeof(merged) / sizeof(merged[0]); i++) {
+        a[si + i] = merged[i];
+    }
+}
+
+int main() {
+    int arr[] = {4, 8, 2, 6, 0};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    divide(arr, 0, n - 1);
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
